@@ -21,9 +21,22 @@ export const projectsSlice = createSlice({
     projectDeleted: (state, action) => {
       return state.filter((project) => project.id !== action.payload);
     },
+    setFavorites: (state, action) => {
+      state.map((p) => {
+        if (p.id === action.payload) {
+          p.is_favorite = p.is_favorite ? false : true;
+        }
+      });
+      // console.log(state);
+    },
   },
 });
 
-export const { fetchedProjects, projectAdded, projectEdited, projectDeleted } =
-  projectsSlice.actions;
+export const {
+  fetchedProjects,
+  projectAdded,
+  projectEdited,
+  projectDeleted,
+  setFavorites,
+} = projectsSlice.actions;
 export default projectsSlice.reducer;

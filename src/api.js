@@ -65,3 +65,55 @@ export const deleteProject = async (id) => {
 };
 
 // deleteProject(2327500658);
+
+export const addProjectToFav = async (id, value) => {
+  const res = await axios
+    .post(
+      `https://api.todoist.com/rest/v2/projects/${id}`,
+      {
+        is_favorite: `${value}`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Request-Id": v4(),
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};
+
+export const getTasks = async () => {
+  const res = await axios
+    .get(`https://api.todoist.com/rest/v2/tasks`, {
+      headers: `Authorization: Bearer ${token}`,
+    })
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};
+
+export const addTask = async (id, name, desc) => {
+  const res = await axios
+    .post(
+      `https://api.todoist.com/rest/v2/tasks`,
+      {
+        project_id: `${id}`,
+        content: `${name}`,
+        description: `${desc}`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Request-Id": v4(),
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};

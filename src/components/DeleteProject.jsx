@@ -26,8 +26,14 @@ const DeleteProject = ({ projectId }) => {
   };
   return (
     <>
-      <Button type="text" onClick={showModal} danger block>
-        <RiDeleteBin6Line /> Delete
+      <Button
+        type="text"
+        onClick={showModal}
+        danger
+        style={{ width: "13rem", textAlign: "left" }}
+      >
+        <RiDeleteBin6Line />
+        <span style={{ marginLeft: "1rem" }}> Delete</span>
       </Button>
       <Modal
         title="Delete?"

@@ -26,8 +26,13 @@ const EditProject = ({ project }) => {
     <>
       {/* <Button onClick={showModal}>+ Add Project</Button>
        */}
-      <Button onClick={showModal} type="text" block>
-        <FiEdit3 /> Edit
+      <Button
+        onClick={showModal}
+        type="text"
+        style={{ width: "13rem", textAlign: "left" }}
+      >
+        <FiEdit3 />
+        <span style={{ marginLeft: "1rem" }}> Edit</span>
       </Button>
       <Modal
         closeIcon={false}

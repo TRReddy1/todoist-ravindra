@@ -1,29 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Popover, Space } from "antd";
 import { TfiMore } from "react-icons/tfi";
-import { CiHeart } from "react-icons/ci";
 import AddProject from "./AddProject";
 import DeleteProject from "./DeleteProject";
 import EditProject from "./EditProject";
+import FavoriteProject from "./FavoriteProject";
 
 const ProjectPopover = ({ project, show }) => {
+  const [popoverVisible, setPopoverVisible] = useState(true);
+
+  const handleHidePopover = () => {
+    setPopoverVisible(false);
+  };
+
   const content = (
-    <div
-      style={{ display: "flex", flexDirection: "column", textAlign: "left" }}
-    >
+    // <div
+    //   style={{ display: "flex", flexDirection: "column", textAlign: "left" }}
+    // >
+    <Space direction="vertical" align="center">
       <EditProject project={project} />
-      <Button type="text" block>
-        <CiHeart />
-        Add to Favorites
-      </Button>
+      <FavoriteProject
+        project={project}
+        setClicked={setPopoverVisible}
+        onHidePopover={handleHidePopover}
+      />
       <DeleteProject projectId={project.id} />
-    </div>
+    </Space>
+    // </div>
   );
 
   return (
     <Space wrap>
-      <Popover content={content} trigger="click">
-        <TfiMore style={{ display: show ? "block" : "none" }} />
+      <Popover
+        content={content}
+        trigger="click"
+        open={popoverVisible}
+        onOpenChange={(open) => setPopoverVisible(open)}
+      >
+        <TfiMore
+          style={{
+            display: show ? "block" : "none",
+            cursor: "pointer",
+            marginRight: "0.3rem",
+          }}
+        />
       </Popover>
     </Space>
   );
