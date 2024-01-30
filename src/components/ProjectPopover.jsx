@@ -34,8 +34,8 @@ const ProjectPopover = ({ project, show }) => {
       <Popover
         content={content}
         trigger="click"
-        open={popoverVisible}
-        onOpenChange={(open) => setPopoverVisible(open)}
+        // open={popoverVisible}
+        // onOpenChange={(open) => setPopoverVisible(open)}
       >
         <TfiMore
           style={{

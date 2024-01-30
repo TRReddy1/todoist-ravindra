@@ -117,3 +117,51 @@ export const addTask = async (id, name, desc) => {
     .catch((err) => console.log(err));
   return res;
 };
+
+export const deleteTask = async (id) => {
+  const res = await axios
+    .delete(`https://api.todoist.com/rest/v2/tasks/${id}`, {
+      headers: `Authorization: Bearer ${token}`,
+    })
+    .then((res) => res.status)
+    .catch((err) => console.log(err));
+  return res;
+};
+
+export const updateTask = async (id, name, desc) => {
+  const res = await axios
+    .post(
+      `https://api.todoist.com/rest/v2/tasks/${id}`,
+      {
+        content: `${name}`,
+        description: `${desc}`,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Request-Id": v4(),
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};
+
+export const changeTaskStatus = async (id) => {
+  // console.log(typeof id);
+  const res = await axios
+    .post(
+      `https://api.todoist.com/rest/v2/tasks/${id}/close`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .then((res) => res.data)
+    .catch((err) => console.log(err));
+  return res;
+};

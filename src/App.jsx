@@ -39,7 +39,7 @@ function App() {
         {/* <Header>Header</Header> */}
         <Layout>
           <NavLink style={{ color: "black" }}>
-            <Sider collapsed={collapsed} style={{ backgroundColor: "#faf8f7" }}>
+            <Sider style={{ backgroundColor: "#faf8f7" }}>
               {/* <BsLayoutSidebar onClick={() => setCollapsed(!collapsed)} /> */}
               <Space direction="vertical">
                 <div>

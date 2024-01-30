@@ -1,35 +1,43 @@
 import React, { useState } from "react";
 import { Button, Dropdown, Flex, Input, Menu } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../api";
-import { taskAdded } from "./features/tasksSlice";
+import { FiEdit3 } from "react-icons/fi";
+import { updateTask } from "../api";
+import { taskUpdated } from "./features/tasksSlice";
 
-const AddTask = ({ projectId }) => {
-  const [showBox, setShowBox] = useState(false);
+const EditTask = ({ task, showBox, setShowBox }) => {
+  // const [showBox, setShowBox] = useState(false);
   const projects = useSelector((state) => state.projects);
   const dispatch = useDispatch();
-  const [taskName, setTaskName] = useState(null);
-  const [desc, setDesc] = useState("");
+  const [taskName, setTaskName] = useState(task.content);
+  const [desc, setDesc] = useState(task.description ? task.description : "");
 
   const menuItems = projects.map((p) => {
     return <Menu.Item key={p.id}>{p.name}</Menu.Item>;
   });
 
   const handleClick = () => {
-    addTask(projectId, taskName, desc).then((res) => dispatch(taskAdded(res)));
+    updateTask(task.id, taskName, desc).then((res) =>
+      dispatch(taskUpdated({ id: task.id, res: res }))
+    );
+    setShowBox(false);
     setTaskName("");
     setDesc("");
   };
 
-  //   console.log(items);
   return (
-    <div>
+    <div
+      style={{
+        width: "100%",
+      }}
+    >
       <Button
-        style={{ width: "6rem", display: showBox ? "none" : "block" }}
+        size="small"
         type="text"
-        onClick={() => setShowBox(true)}
+        // onClick={() => setShowBox(true)}
+        style={{ display: showBox ? "none" : "block" }}
       >
-        + Add Task
+        <FiEdit3 />
       </Button>
 
       {showBox && (
@@ -67,7 +75,7 @@ const AddTask = ({ projectId }) => {
                 cancel
               </Button>
               <Button type="primary" disabled={!taskName} onClick={handleClick}>
-                Add task
+                save
               </Button>
             </div>
           </Flex>
@@ -77,4 +85,4 @@ const AddTask = ({ projectId }) => {
   );
 };
 
-export default AddTask;
+export default EditTask;
