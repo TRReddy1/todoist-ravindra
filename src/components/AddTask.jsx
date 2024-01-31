@@ -25,28 +25,34 @@ const AddTask = ({ projectId }) => {
   const onClick = (e) => {
     const found = projects.find((p) => p.id === e.key);
     // setProjectName(found.name);
-    setSelected({ id: e.key, name: found.name });
+    if (found.id !== projectId) {
+      setSelected({ id: e.key, name: found.name });
+    } else {
+      setSelected({ id: null, name: "" });
+    }
     // console.log(selected.id && selected.name);
   };
 
   const handleClick = () => {
-    if (selected.id !== projectId) {
+    console.log(selected.id);
+    if (selected.id) {
       addTask(selected.id, taskName, desc).then((res) => {
         dispatch(taskAdded(res));
         dispatch(fetchedTasks({ id: projectId, res: tasks }));
       });
-      setTaskName("");
-      setDesc("");
-      setSelected({ id: null, name: "" });
+      // setTaskName("");
+      // setDesc("");
+      // setSelected({ id: null, name: "" });
     } else {
       addTask(projectId, taskName, desc).then((res) => {
         dispatch(taskAdded(res));
         // dispatch(fetchedTasks({ id: projectId, res: tasks }));
       });
-      setTaskName("");
-      setDesc("");
-      setSelected({ id: null, name: "" });
     }
+    setTaskName("");
+    setDesc("");
+    setSelected({ id: null, name: "" });
+    setShowBox(false);
   };
 
   return (

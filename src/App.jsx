@@ -45,7 +45,7 @@ function App() {
                     alignItems: "center",
                     padding: "0.3rem",
                     borderRadius: "0.5rem",
-                    backgroundColor: "RGB(248 188 170)",
+                    backgroundColor: "#ffaaa1",
                     marginTop: "1rem",
                   }}
                 >
@@ -80,7 +80,7 @@ function App() {
                     alignItems: "center",
                     padding: "0.3rem",
                     borderRadius: "0.5rem",
-                    backgroundColor: "RGB(248 188 170)",
+                    backgroundColor: "#ffaaa1",
                   }}
                 >
                   <div> My Projects </div>
