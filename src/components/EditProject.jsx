@@ -52,10 +52,6 @@ const EditProject = ({ project }) => {
             />
           </div>
           <div>
-            <strong>color</strong>
-            <Input />
-          </div>
-          <div>
             <Switch /> Add to Favorites
           </div>
         </Flex>

@@ -5,26 +5,34 @@ import { FiEdit3 } from "react-icons/fi";
 import { updateTask } from "../api";
 import { taskUpdated } from "./features/tasksSlice";
 import { FaCaretDown } from "react-icons/fa";
+import { addTask, deleteTask } from "../api";
+import { taskDeleted } from "./features/tasksSlice";
 
 const EditTask = ({ task, showBox, setShowBox }) => {
-  // const [showBox, setShowBox] = useState(false);
   const projects = useSelector((state) => state.projects);
   const dispatch = useDispatch();
   const [taskName, setTaskName] = useState(task.content);
   const [desc, setDesc] = useState(task.description ? task.description : "");
-  const [projectName, setProjectName] = useState("");
-
-  // const menuItems = projects.map((p) => {
-  //   return <Menu.Item key={p.id}>{p.name}</Menu.Item>;
-  // });
+  const [selected, setSelected] = useState({ id: null, name: "" });
 
   const handleClick = () => {
-    updateTask(task.id, taskName, desc).then((res) =>
-      dispatch(taskUpdated({ id: task.id, res: res }))
-    );
-    setShowBox(false);
-    setTaskName("");
-    setDesc("");
+    if (selected.id === null) {
+      updateTask(task.id, taskName, desc).then((res) =>
+        dispatch(taskUpdated({ id: task.id, res: res }))
+      );
+      setShowBox(false);
+      setTaskName("");
+      setDesc("");
+    } else {
+      deleteTask(task.id).then((res) => {
+        dispatch(taskDeleted(task.id));
+        addTask(selected.id, taskName, desc);
+      });
+      setShowBox(false);
+      setTaskName("");
+      setDesc("");
+      setSelected({ id: null, name: "" });
+    }
   };
 
   const items = projects.map((p) => {
@@ -35,8 +43,8 @@ const EditTask = ({ task, showBox, setShowBox }) => {
   });
 
   const onClick = (e) => {
-    const selected = projects.find((p) => p.id === e.key);
-    setProjectName(selected.name);
+    const found = projects.find((p) => p.id === e.key);
+    setSelected({ id: e.key, name: found.name });
   };
 
   return (
@@ -48,7 +56,6 @@ const EditTask = ({ task, showBox, setShowBox }) => {
       <Button
         size="small"
         type="text"
-        // onClick={() => setShowBox(true)}
         style={{ display: showBox ? "none" : "block" }}
       >
         <FiEdit3 />
@@ -88,7 +95,7 @@ const EditTask = ({ task, showBox, setShowBox }) => {
               placement="bottom"
             >
               <Button type="text">
-                {projectName === "" ? "My Projects" : projectName}
+                {selected.name === "" ? "My Projects" : selected.name}
                 <FaCaretDown style={{ marginLeft: "1rem" }} />
               </Button>
             </Dropdown>

@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { FaRegCircle } from "react-icons/fa";
-import { CiCircleCheck } from "react-icons/ci";
 import { Flex, Typography, Button, notification } from "antd";
 import TaskPopover from "./TaskPopover";
 import EditTask from "./EditTask";
@@ -43,14 +41,11 @@ const Task = ({ task }) => {
       style={{
         borderBottom: "0.1px solid",
         padding: "0.5rem",
-        // height: "fit-content",
-        // border: "solid",
       }}
       onMouseOver={() => setShowMore(true)}
       onMouseLeave={() => setShowMore(false)}
     >
       <Flex align="center" justify="space-between">
-        {/* {changeIcon ? <CiCircleCheck /> : <FaRegCircle />} */}
         {editing ? null : (
           <Flex>
             {context}
@@ -91,12 +86,6 @@ const Task = ({ task }) => {
           />
         ) : (
           <>
-            {/* <EditTask
-                onClick={handleEditClick}
-                task={task}
-                showBox={editing}
-              /> */}
-
             <Flex
               style={{
                 padding: "0",
@@ -105,12 +94,7 @@ const Task = ({ task }) => {
                 display: showMore ? "block" : "none",
               }}
             >
-              <Button
-                size="small"
-                type="text"
-                // onClick={() => setShowBox(true)}
-                onClick={handleEditClick}
-              >
+              <Button size="small" type="text" onClick={handleEditClick}>
                 <FiEdit3 />
               </Button>
               <TaskPopover task={task} />

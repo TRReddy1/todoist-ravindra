@@ -12,8 +12,6 @@ const ProjectDetails = () => {
   const [projectName, setProjectName] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
-  //   name = name.replace("-", " ").trim();
-  //   console.log(name && id);
   const tasks = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,7 +37,6 @@ const ProjectDetails = () => {
               My Projects /
             </Breadcrumb.Item>
           </Breadcrumb>
-          <div>hello</div>
         </Flex>
         <Content
           style={{

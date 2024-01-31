@@ -7,6 +7,7 @@ export const projectsSlice = createSlice({
   initialState,
   reducers: {
     fetchedProjects: (state, action) => {
+      action.payload.shift();
       return action.payload;
     },
     projectAdded: (state, action) => {

@@ -1,7 +1,6 @@
 import { Button, Flex, Input, Layout, Menu, Space, Typography } from "antd";
 import Sider from "antd/es/layout/Sider";
-import { Content, Header } from "antd/es/layout/layout";
-import { BsLayoutSidebar, BsPlus } from "react-icons/bs";
+import { Content } from "antd/es/layout/layout";
 import { CiSearch } from "react-icons/ci";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,11 +12,10 @@ import { FaChevronDown } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { FaAngleRight } from "react-icons/fa";
 import { fetchedFavorites } from "./components/features/favoritesSlice";
-import { NavLink, Outlet, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ProjectDetails from "./components/ProjectDetails";
 
 function App() {
-  const [collapsed, setCollapsed] = useState(false);
   const [arrowClick, setArrowClick] = useState(false);
   const [favoritesArr, setFavoritesArr] = useState(false);
 
@@ -32,24 +30,20 @@ function App() {
   }, []);
 
   const favorites = useSelector((state) => state.favorites);
-  // console.log(favorites);
   return (
     <>
       <Layout style={{ width: "100wh", height: "100vh" }}>
-        {/* <Header>Header</Header> */}
         <Layout>
-          {/* <NavLink style={{ color: "black" }}> */}
           <Sider style={{ backgroundColor: "#faf8f7" }}>
-            {/* <BsLayoutSidebar onClick={() => setCollapsed(!collapsed)} /> */}
             <Space direction="vertical">
               <div>
                 <div
                   style={{
                     display: "flex",
                     gap: "5.9rem",
-                    // justifyContent: "space-between",
                     alignItems: "center",
                     padding: "0.3rem",
+                    borderRadius: "0.5rem",
                     backgroundColor: "RGB(248 188 170)",
                     marginTop: "10rem",
                   }}
@@ -82,9 +76,9 @@ function App() {
                   style={{
                     display: "flex",
                     gap: "3rem",
-                    // justifyContent: "space-between",
                     alignItems: "center",
                     padding: "0.3rem",
+                    borderRadius: "0.5rem",
                     backgroundColor: "RGB(248 188 170)",
                   }}
                 >
@@ -111,7 +105,6 @@ function App() {
               </div>
             </Space>
           </Sider>
-          {/* </NavLink> */}
           <Routes>
             <Route
               path="/"
@@ -135,13 +128,9 @@ function App() {
                     <div
                       style={{
                         display: "flex",
-                        justifyContent: "space-between",
+                        justifyContent: "flex-end",
                       }}
                     >
-                      <select name="project">
-                        <option value="one"> Active Projects </option>
-                      </select>
-
                       <AddProject name={"+ Add Project"} />
                     </div>
                     <Typography.Text>
@@ -151,7 +140,6 @@ function App() {
                       return <Project key={project.id} project={project} />;
                     })}
                   </Flex>
-                  <Outlet />
                 </Content>
               }
             ></Route>

@@ -4,8 +4,9 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { deleteProject } from "../api";
 import { projectDeleted } from "./features/projectsSlices";
+import { removedFavorite } from "./features/favoritesSlice";
 
-const DeleteProject = ({ projectId }) => {
+const DeleteProject = ({ project }) => {
   const dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,9 +15,10 @@ const DeleteProject = ({ projectId }) => {
   };
 
   const handleOk = () => {
-    deleteProject(projectId).then((res) => {
+    deleteProject(project.id).then((res) => {
       if (res === 204) {
-        dispatch(projectDeleted(projectId));
+        dispatch(projectDeleted(project.id));
+        dispatch(removedFavorite(project));
       }
     });
     setIsModalOpen(false);
@@ -44,8 +46,7 @@ const DeleteProject = ({ projectId }) => {
         onCancel={handleCancel}
       >
         <p>
-          This will permanently delete project 4 and all its tasks. This cant be
-          undone.
+          This will permanently delete and all its tasks. This cant be undone.
         </p>
       </Modal>
     </>

@@ -13,12 +13,13 @@ export const getProjects = async () => {
   return res;
 };
 
-export const addProject = async (name) => {
+export const addProject = async (name, value) => {
   const res = await axios
     .post(
       "https://api.todoist.com/rest/v2/projects",
       {
         name: `${name}`,
+        is_favorite: `${value}`,
       },
       {
         headers: {
@@ -128,13 +129,14 @@ export const deleteTask = async (id) => {
   return res;
 };
 
-export const updateTask = async (id, name, desc) => {
+export const updateTask = async (id, name, desc, projectId) => {
   const res = await axios
     .post(
       `https://api.todoist.com/rest/v2/tasks/${id}`,
       {
         content: `${name}`,
         description: `${desc}`,
+        project_id: `${projectId}`,
       },
       {
         headers: {

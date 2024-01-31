@@ -14,9 +14,6 @@ const ProjectPopover = ({ project, show }) => {
   };
 
   const content = (
-    // <div
-    //   style={{ display: "flex", flexDirection: "column", textAlign: "left" }}
-    // >
     <Space direction="vertical" align="center">
       <EditProject project={project} />
       <FavoriteProject
@@ -24,9 +21,8 @@ const ProjectPopover = ({ project, show }) => {
         setClicked={setPopoverVisible}
         onHidePopover={handleHidePopover}
       />
-      <DeleteProject projectId={project.id} />
+      <DeleteProject project={project} />
     </Space>
-    // </div>
   );
 
   return (

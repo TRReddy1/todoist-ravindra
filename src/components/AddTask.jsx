@@ -30,14 +30,23 @@ const AddTask = ({ projectId }) => {
   };
 
   const handleClick = () => {
-    addTask(selected.id ? selected.id : projectId, taskName, desc).then(
-      (res) => {
+    if (selected.id) {
+      addTask(selected.id, taskName, desc).then((res) => {
         dispatch(taskAdded(res));
         dispatch(fetchedTasks({ id: projectId, res: tasks }));
-      }
-    );
-    setTaskName("");
-    setDesc("");
+      });
+      setTaskName("");
+      setDesc("");
+      setSelected({ id: null, name: "" });
+    } else {
+      addTask(projectId, taskName, desc).then((res) => {
+        dispatch(taskAdded(res));
+        // dispatch(fetchedTasks({ id: projectId, res: tasks }));
+      });
+      setTaskName("");
+      setDesc("");
+      setSelected({ id: null, name: "" });
+    }
   };
 
   return (
@@ -90,12 +99,18 @@ const AddTask = ({ projectId }) => {
             </Dropdown>
             <div>
               <Button
+                type="text"
                 onClick={() => setShowBox(false)}
                 style={{ marginRight: "1rem" }}
               >
                 cancel
               </Button>
-              <Button type="primary" disabled={!taskName} onClick={handleClick}>
+              <Button
+                type="primary"
+                disabled={!taskName}
+                onClick={handleClick}
+                danger
+              >
                 Add task
               </Button>
             </div>

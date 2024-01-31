@@ -1,4 +1,4 @@
-import { Button, Flex } from "antd";
+import { Flex } from "antd";
 import React, { useState } from "react";
 import ProjectPopover from "./ProjectPopover";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +30,6 @@ const Project = ({ project }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          // border: "solid",
           width: "96%",
           padding: "0.5rem",
           cursor: "pointer",
