@@ -16,7 +16,7 @@ const EditTask = ({ task, showBox, setShowBox }) => {
   const [selected, setSelected] = useState({ id: null, name: "" });
 
   const handleClick = () => {
-    if (selected.id === null) {
+    if (selected.id === null || selected.id === task.project_id) {
       updateTask(task.id, taskName, desc).then((res) =>
         dispatch(taskUpdated({ id: task.id, res: res }))
       );
@@ -24,14 +24,16 @@ const EditTask = ({ task, showBox, setShowBox }) => {
       setTaskName("");
       setDesc("");
     } else {
-      deleteTask(task.id).then((res) => {
-        dispatch(taskDeleted(task.id));
-        addTask(selected.id, taskName, desc);
-      });
-      setShowBox(false);
-      setTaskName("");
-      setDesc("");
-      setSelected({ id: null, name: "" });
+      if (selected.id !== task.project_id) {
+        deleteTask(task.id).then((res) => {
+          dispatch(taskDeleted(task.id));
+          addTask(selected.id, taskName, desc);
+        });
+        setShowBox(false);
+        setTaskName("");
+        setDesc("");
+        setSelected({ id: null, name: "" });
+      }
     }
   };
 

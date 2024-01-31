@@ -16,10 +16,12 @@ const Moveto = ({ task }) => {
   });
 
   const onClick = (e) => {
-    deleteTask(task.id).then((res) => {
-      dispatch(taskDeleted(task.id));
-      addTask(e.key, task.content, task.description);
-    });
+    if (task.project_id !== e.key) {
+      deleteTask(task.id).then((res) => {
+        dispatch(taskDeleted(task.id));
+        addTask(e.key, task.content, task.description);
+      });
+    }
   };
 
   return (

@@ -5,9 +5,11 @@ import { useDispatch } from "react-redux";
 import { deleteProject } from "../api";
 import { projectDeleted } from "./features/projectsSlices";
 import { removedFavorite } from "./features/favoritesSlice";
+import { useNavigate } from "react-router-dom";
 
 const DeleteProject = ({ project }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -16,6 +18,7 @@ const DeleteProject = ({ project }) => {
 
   const handleOk = () => {
     deleteProject(project.id).then((res) => {
+      navigate("/");
       if (res === 204) {
         dispatch(projectDeleted(project.id));
         dispatch(removedFavorite(project));

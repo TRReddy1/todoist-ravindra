@@ -36,6 +36,7 @@ function App() {
         <Layout>
           <Sider style={{ backgroundColor: "#faf8f7" }}>
             <Space direction="vertical">
+              <h3 style={{ margin: "1rem" }}>Ravindra</h3>
               <div>
                 <div
                   style={{
@@ -45,7 +46,7 @@ function App() {
                     padding: "0.3rem",
                     borderRadius: "0.5rem",
                     backgroundColor: "RGB(248 188 170)",
-                    marginTop: "10rem",
+                    marginTop: "1rem",
                   }}
                 >
                   <div> Favorites </div>

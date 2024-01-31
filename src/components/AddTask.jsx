@@ -30,7 +30,7 @@ const AddTask = ({ projectId }) => {
   };
 
   const handleClick = () => {
-    if (selected.id) {
+    if (selected.id !== projectId) {
       addTask(selected.id, taskName, desc).then((res) => {
         dispatch(taskAdded(res));
         dispatch(fetchedTasks({ id: projectId, res: tasks }));
