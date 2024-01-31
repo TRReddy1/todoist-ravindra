@@ -38,80 +38,80 @@ function App() {
       <Layout style={{ width: "100wh", height: "100vh" }}>
         {/* <Header>Header</Header> */}
         <Layout>
-          <NavLink style={{ color: "black" }}>
-            <Sider style={{ backgroundColor: "#faf8f7" }}>
-              {/* <BsLayoutSidebar onClick={() => setCollapsed(!collapsed)} /> */}
-              <Space direction="vertical">
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "5.9rem",
-                      // justifyContent: "space-between",
-                      alignItems: "center",
-                      padding: "0.3rem",
-                      backgroundColor: "RGB(248 188 170)",
-                      marginTop: "10rem",
-                    }}
-                  >
-                    <div> Favorites </div>
-                    <div>
-                      <Button
-                        type="text"
-                        size="small"
-                        onClick={() => setFavoritesArr(!favoritesArr)}
-                      >
-                        {favoritesArr ? (
-                          <FaChevronDown size={14} />
-                        ) : (
-                          <FaAngleRight size={14} />
-                        )}
-                      </Button>
-                    </div>
+          {/* <NavLink style={{ color: "black" }}> */}
+          <Sider style={{ backgroundColor: "#faf8f7" }}>
+            {/* <BsLayoutSidebar onClick={() => setCollapsed(!collapsed)} /> */}
+            <Space direction="vertical">
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "5.9rem",
+                    // justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "0.3rem",
+                    backgroundColor: "RGB(248 188 170)",
+                    marginTop: "10rem",
+                  }}
+                >
+                  <div> Favorites </div>
+                  <div>
+                    <Button
+                      type="text"
+                      size="small"
+                      onClick={() => setFavoritesArr(!favoritesArr)}
+                    >
+                      {favoritesArr ? (
+                        <FaChevronDown size={14} />
+                      ) : (
+                        <FaAngleRight size={14} />
+                      )}
+                    </Button>
                   </div>
-                  {favoritesArr &&
-                    favorites.map((project) => {
-                      return <Project key={project.id} project={project} />;
-                    })}
                 </div>
+                {favoritesArr &&
+                  favorites.map((project) => {
+                    return <Project key={project.id} project={project} />;
+                  })}
+              </div>
 
-                {/* for projects */}
+              {/* for projects */}
 
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "3rem",
-                      // justifyContent: "space-between",
-                      alignItems: "center",
-                      padding: "0.3rem",
-                      backgroundColor: "RGB(248 188 170)",
-                    }}
-                  >
-                    <div> My Projects </div>
-                    <div>
-                      <AddProject name={<FaPlus size={14} />} />
-                      <Button
-                        type="text"
-                        size="small"
-                        onClick={() => setArrowClick(!arrowClick)}
-                      >
-                        {arrowClick ? (
-                          <FaChevronDown size={14} />
-                        ) : (
-                          <FaAngleRight size={14} />
-                        )}
-                      </Button>
-                    </div>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "3rem",
+                    // justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "0.3rem",
+                    backgroundColor: "RGB(248 188 170)",
+                  }}
+                >
+                  <div> My Projects </div>
+                  <div>
+                    <AddProject name={<FaPlus size={14} />} />
+                    <Button
+                      type="text"
+                      size="small"
+                      onClick={() => setArrowClick(!arrowClick)}
+                    >
+                      {arrowClick ? (
+                        <FaChevronDown size={14} />
+                      ) : (
+                        <FaAngleRight size={14} />
+                      )}
+                    </Button>
                   </div>
-                  {arrowClick &&
-                    projects.map((project) => {
-                      return <Project key={project.id} project={project} />;
-                    })}
                 </div>
-              </Space>
-            </Sider>
-          </NavLink>
+                {arrowClick &&
+                  projects.map((project) => {
+                    return <Project key={project.id} project={project} />;
+                  })}
+              </div>
+            </Space>
+          </Sider>
+          {/* </NavLink> */}
           <Routes>
             <Route
               path="/"

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiEdit3 } from "react-icons/fi";
 import { updateTask } from "../api";
 import { taskUpdated } from "./features/tasksSlice";
+import { FaCaretDown } from "react-icons/fa";
 
 const EditTask = ({ task, showBox, setShowBox }) => {
   // const [showBox, setShowBox] = useState(false);
@@ -11,10 +12,11 @@ const EditTask = ({ task, showBox, setShowBox }) => {
   const dispatch = useDispatch();
   const [taskName, setTaskName] = useState(task.content);
   const [desc, setDesc] = useState(task.description ? task.description : "");
+  const [projectName, setProjectName] = useState("");
 
-  const menuItems = projects.map((p) => {
-    return <Menu.Item key={p.id}>{p.name}</Menu.Item>;
-  });
+  // const menuItems = projects.map((p) => {
+  //   return <Menu.Item key={p.id}>{p.name}</Menu.Item>;
+  // });
 
   const handleClick = () => {
     updateTask(task.id, taskName, desc).then((res) =>
@@ -23,6 +25,18 @@ const EditTask = ({ task, showBox, setShowBox }) => {
     setShowBox(false);
     setTaskName("");
     setDesc("");
+  };
+
+  const items = projects.map((p) => {
+    return {
+      label: p.name,
+      key: p.id,
+    };
+  });
+
+  const onClick = (e) => {
+    const selected = projects.find((p) => p.id === e.key);
+    setProjectName(selected.name);
   };
 
   return (
@@ -64,8 +78,19 @@ const EditTask = ({ task, showBox, setShowBox }) => {
           />
           <hr />
           <Flex justify="space-between">
-            <Dropdown trigger="click" overlay={<Menu>{menuItems}</Menu>}>
-              <Button>projects</Button>
+            <Dropdown
+              menu={{
+                items,
+                onClick,
+                selectable: true,
+              }}
+              trigger={"click"}
+              placement="bottom"
+            >
+              <Button type="text">
+                {projectName === "" ? "My Projects" : projectName}
+                <FaCaretDown style={{ marginLeft: "1rem" }} />
+              </Button>
             </Dropdown>
             <div>
               <Button

@@ -26,7 +26,6 @@ const tasksSlice = createSlice({
       });
     },
     taskCompleted: (state, action) => {
-      // const { id,  } = action.payload;
       return state.filter((task) => task.id !== action.payload);
     },
   },

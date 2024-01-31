@@ -1,27 +1,45 @@
 import React, { useState } from "react";
-import { Button, Dropdown, Flex, Input, Menu } from "antd";
+import { Button, Dropdown, Flex, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask } from "../api";
-import { taskAdded } from "./features/tasksSlice";
+import { fetchedTasks, taskAdded } from "./features/tasksSlice";
+import { FaCaretDown } from "react-icons/fa";
 
 const AddTask = ({ projectId }) => {
   const [showBox, setShowBox] = useState(false);
   const projects = useSelector((state) => state.projects);
+  const tasks = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
   const [taskName, setTaskName] = useState(null);
   const [desc, setDesc] = useState("");
+  // const [projectName, setProjectName] = useState("");
+  const [selected, setSelected] = useState({ id: null, name: "" });
 
-  const menuItems = projects.map((p) => {
-    return <Menu.Item key={p.id}>{p.name}</Menu.Item>;
+  const items = projects.map((p) => {
+    return {
+      label: p.name,
+      key: p.id,
+    };
   });
 
+  const onClick = (e) => {
+    const found = projects.find((p) => p.id === e.key);
+    // setProjectName(found.name);
+    setSelected({ id: e.key, name: found.name });
+    // console.log(selected.id && selected.name);
+  };
+
   const handleClick = () => {
-    addTask(projectId, taskName, desc).then((res) => dispatch(taskAdded(res)));
+    addTask(selected.id ? selected.id : projectId, taskName, desc).then(
+      (res) => {
+        dispatch(taskAdded(res));
+        dispatch(fetchedTasks({ id: projectId, res: tasks }));
+      }
+    );
     setTaskName("");
     setDesc("");
   };
 
-  //   console.log(items);
   return (
     <div>
       <Button
@@ -56,8 +74,19 @@ const AddTask = ({ projectId }) => {
           />
           <hr />
           <Flex justify="space-between">
-            <Dropdown trigger="click" overlay={<Menu>{menuItems}</Menu>}>
-              <Button>projects</Button>
+            <Dropdown
+              menu={{
+                items,
+                onClick,
+                selectable: true,
+              }}
+              trigger={"click"}
+              placement="bottom"
+            >
+              <Button type="text">
+                {selected.name === "" ? "My Projects" : selected.name}
+                <FaCaretDown style={{ marginLeft: "1rem" }} />
+              </Button>
             </Dropdown>
             <div>
               <Button

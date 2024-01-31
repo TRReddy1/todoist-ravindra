@@ -34,6 +34,7 @@ const ProjectPopover = ({ project, show }) => {
       <Popover
         content={content}
         trigger="click"
+        placement="bottomRight"
         // open={popoverVisible}
         // onOpenChange={(open) => setPopoverVisible(open)}
       >

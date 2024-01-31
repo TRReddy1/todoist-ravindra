@@ -21,7 +21,7 @@ const ProjectDetails = () => {
       setProjectName(() => res.find((p) => p.id === id).name)
     );
     getTasks().then((res) => dispatch(fetchedTasks({ id, res })));
-  }, []);
+  }, [id]);
 
   return (
     <>

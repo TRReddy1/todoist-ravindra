@@ -165,3 +165,25 @@ export const changeTaskStatus = async (id) => {
     .catch((err) => console.log(err));
   return res;
 };
+
+// export const moveTask = async (taskName, taskid, projectid) => {
+//   console.log(projectid);
+//   const res = await axios
+//     .post(
+//       `https://api.todoist.com/rest/v2/tasks/${taskid}`,
+//       {
+//         content: taskName,
+//         project_id: `${projectid}`,
+//       },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//           "X-Request-Id": v4(),
+//           Authorization: `Bearer ${token}`,
+//         },
+//       }
+//     )
+//     .then((res) => res.data)
+//     .catch((err) => console.log(err));
+//   return res;
+// };
