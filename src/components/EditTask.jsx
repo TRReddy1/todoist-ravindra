@@ -105,10 +105,16 @@ const EditTask = ({ task, showBox, setShowBox }) => {
               <Button
                 onClick={() => setShowBox(false)}
                 style={{ marginRight: "1rem" }}
+                type="text"
               >
                 cancel
               </Button>
-              <Button type="primary" disabled={!taskName} onClick={handleClick}>
+              <Button
+                type="primary"
+                danger
+                disabled={!taskName}
+                onClick={handleClick}
+              >
                 save
               </Button>
             </div>
